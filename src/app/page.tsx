@@ -29,6 +29,8 @@ const services = [
   },
 ];
 
+const rotations = ["rot-a", "rot-b", "rot-c", "rot-d"];
+
 export default async function Home() {
   const [featured, testimonials] = await Promise.all([
     getFeaturedImages(),
@@ -38,42 +40,41 @@ export default async function Home() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-5 pb-16 pt-20 md:px-8 md:pb-24 md:pt-28">
-        <p className="eyebrow">Photography · Videography · Live Streaming</p>
-        <h1 className="mt-5 max-w-3xl font-display text-4xl leading-[1.08] tracking-tight text-paper md:text-6xl">
-          Work worth remembering, captured properly.
-        </h1>
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-paper-muted md:text-lg">
-          Bave Studio covers events, weddings, corporate and commercial briefs —
-          stills, film and live broadcast under one roof.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center gap-4">
-          <Link
-            href="/contact"
-            className="rounded-full bg-amber px-6 py-3 font-medium text-ink transition-colors hover:bg-amber-deep"
-          >
-            Start a project
-          </Link>
-          <Link
-            href="/work"
-            className="text-sm text-paper-muted underline-offset-4 transition-colors hover:text-paper hover:underline"
-          >
-            See the work →
-          </Link>
+      {/* Deep-teal editorial hero */}
+      <section className="bg-teal">
+        <div className="mx-auto max-w-[1200px] px-5 py-24 text-center md:px-8 md:py-36">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-white/60">
+            Photography · Videography · Live Streaming
+          </p>
+          <h1 className="mx-auto mt-7 max-w-3xl font-display text-5xl font-light leading-[0.98] tracking-tight text-white md:text-7xl lg:text-[80px]">
+            Work worth remembering, captured properly.
+          </h1>
+          <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
+            Bave Studio covers events, weddings, corporate and commercial
+            briefs — stills, film and live broadcast under one roof.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="btn-fill !bg-white !text-ink hover:!bg-linen"
+            >
+              Start a project
+            </Link>
+            <Link href="/work" className="btn-ghost-light">
+              See the work&nbsp;&nbsp;▷
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Curated work strip */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+      {/* Scrapbook work strip on the cream canvas */}
+      <section className="mx-auto max-w-[1200px] px-5 pt-20 md:px-8 md:pt-28">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-2">
           {featured.length >= 4
             ? featured.slice(0, 4).map((item, i) => (
                 <div
                   key={i}
-                  className={`frame relative aspect-[4/5] ${
-                    i % 2 === 1 ? "md:translate-y-8" : ""
-                  }`}
+                  className={`frame relative aspect-[4/5] ${rotations[i]} md:-mx-1`}
                 >
                   <SanityImage image={item.image} priority={i < 2} />
                 </div>
@@ -88,40 +89,36 @@ export default async function Home() {
                   key={label}
                   label={label}
                   ratio="aspect-[4/5]"
-                  className={i % 2 === 1 ? "md:translate-y-8" : ""}
+                  className={`${rotations[i]} md:-mx-1`}
                 />
               ))}
         </div>
-        <p className="mt-12 text-right text-sm text-paper-muted md:mt-16">
+        <p className="mt-10 text-right text-sm text-graphite">
           <Link
             href="/work"
-            className="underline-offset-4 hover:text-paper hover:underline"
+            className="underline-offset-4 hover:text-ink hover:underline"
           >
             Full portfolio →
           </Link>
         </p>
       </section>
 
-      {/* Three service lines */}
-      <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+      {/* Three service lines as white cards */}
+      <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-28">
         <p className="eyebrow">What we do</p>
-        <div className="mt-8 grid gap-px overflow-hidden rounded-lg border rule bg-hairline md:grid-cols-3">
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
           {services.map((s) => (
             <Link
               key={s.href}
               href={s.href}
-              className="group bg-ink p-7 transition-colors hover:bg-ink-raised md:p-9"
+              className="group rounded-lg border rule bg-card p-8 transition-colors hover:border-ink"
             >
-              <span className="font-display text-sm text-amber">
-                {s.number}
-              </span>
-              <h2 className="mt-3 font-display text-2xl text-paper">
-                {s.title}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-paper-muted">
+              <span className="text-sm font-medium text-orange">{s.number}</span>
+              <h2 className="mt-3 font-display text-2xl text-ink">{s.title}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-graphite">
                 {s.blurb}
               </p>
-              <span className="mt-6 inline-block text-sm text-paper-faint transition-colors group-hover:text-amber">
+              <span className="mt-6 inline-block text-sm text-ash transition-colors group-hover:text-orange">
                 Explore →
               </span>
             </Link>
@@ -129,16 +126,16 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Social proof slot — populated from Sanity testimonials */}
-      <section className="border-y rule bg-ink-raised">
+      {/* Social proof — populated from Sanity testimonials */}
+      <section className="border-y rule bg-linen/60">
         <div className="mx-auto max-w-4xl px-5 py-16 text-center md:px-8 md:py-20">
           <p className="eyebrow">What clients say</p>
-          <blockquote className="mx-auto mt-6 max-w-2xl font-display text-xl leading-relaxed text-paper md:text-2xl">
+          <blockquote className="mx-auto mt-6 max-w-2xl font-display text-xl font-light leading-relaxed text-ink md:text-2xl">
             {testimonial
               ? `“${testimonial.quote}”`
               : "“Testimonial from a real client will appear here — professional, attributed, and specific about the work delivered.”"}
           </blockquote>
-          <p className="mt-5 text-sm text-paper-muted">
+          <p className="mt-5 text-sm text-graphite">
             {testimonial
               ? [testimonial.author, testimonial.organisation]
                   .filter(Boolean)
@@ -149,27 +146,24 @@ export default async function Home() {
       </section>
 
       {/* Contact band */}
-      <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+      <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-28">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
-            <h2 className="font-display text-3xl tracking-tight text-paper md:text-4xl">
+            <h2 className="font-display text-3xl font-light tracking-tight text-ink md:text-4xl">
               Planning something?
             </h2>
-            <p className="mt-3 max-w-md text-paper-muted">
+            <p className="mt-3 max-w-md text-graphite">
               Tell us the date, the place and what you need — we’ll come back
               with a clear quote.
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <Link
-              href="/contact"
-              className="rounded-full bg-amber px-6 py-3 font-medium text-ink transition-colors hover:bg-amber-deep"
-            >
+            <Link href="/contact" className="btn-fill">
               Start a project
             </Link>
             <a
               href="https://wa.me/254798108543"
-              className="text-sm text-paper-muted underline-offset-4 hover:text-paper hover:underline"
+              className="text-sm text-graphite underline-offset-4 hover:text-ink hover:underline"
             >
               WhatsApp us
             </a>

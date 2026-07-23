@@ -3,13 +3,13 @@ import Link from "next/link";
 import LiteVideoEmbed from "@/components/LiteVideoEmbed";
 import { getCaseStudies, parseVideoUrl } from "@/sanity/queries";
 
-export const revalidate = 60;
-
 export const metadata: Metadata = {
   title: "Live Streaming",
   description:
     "Multi-camera live streaming for conferences, church services, weddings, launches and graduations.",
 };
+
+export const revalidate = 60;
 
 const capabilities = [
   {
@@ -43,37 +43,34 @@ export default async function LiveStreamingPage() {
   const caseStudies = await getCaseStudies();
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+    <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <p className="eyebrow">03 — Live Streaming</p>
-      <h1 className="mt-4 max-w-2xl font-display text-4xl leading-tight tracking-tight text-paper md:text-5xl">
+      <h1 className="mt-4 max-w-2xl font-display text-4xl font-light leading-tight tracking-tight text-ink md:text-6xl">
         Your event, live to everyone who couldn’t be in the room.
       </h1>
-      <p className="mt-5 max-w-xl leading-relaxed text-paper-muted">
+      <p className="mt-5 max-w-xl text-lg leading-relaxed text-graphite">
         We handle cameras, switching, sound and the stream itself — you handle
         the event. Guests watch in real time on the platform of your choice.
       </p>
 
-      {/* Capability statement */}
-      <div className="mt-14 grid gap-px overflow-hidden rounded-lg border rule bg-hairline sm:grid-cols-2">
+      {/* Capability statement — white cards on the canvas */}
+      <div className="mt-14 grid gap-4 sm:grid-cols-2">
         {capabilities.map((c) => (
-          <div key={c.title} className="bg-ink p-6 md:p-8">
-            <h2 className="font-display text-lg text-paper">{c.title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-paper-muted">
+          <div key={c.title} className="rounded-lg border rule bg-card p-7">
+            <h2 className="font-display text-xl text-ink">{c.title}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-graphite">
               {c.detail}
             </p>
           </div>
         ))}
       </div>
 
-      {/* Typical use cases */}
+      {/* Typical use cases as pill tags */}
       <div className="mt-16">
         <p className="eyebrow">We stream</p>
         <ul className="mt-5 flex flex-wrap gap-2.5">
           {useCases.map((u) => (
-            <li
-              key={u}
-              className="rounded-full border rule px-4 py-1.5 text-sm text-paper-muted"
-            >
+            <li key={u} className="tag">
               {u}
             </li>
           ))}
@@ -92,17 +89,17 @@ export default async function LiveStreamingPage() {
               return (
                 <article
                   key={cs._id}
-                  className="grid gap-8 rounded-lg border rule p-8 md:grid-cols-2 md:p-10"
+                  className="grid gap-8 rounded-lg border rule bg-card p-8 md:grid-cols-2 md:p-10"
                 >
                   <div>
                     {cs.eventType && <p className="eyebrow">{cs.eventType}</p>}
-                    <h2 className="mt-2 font-display text-2xl text-paper">
+                    <h2 className="mt-2 font-display text-2xl text-ink">
                       {cs.title}
                     </h2>
                     {cs.brief && (
                       <div className="mt-5">
                         <p className="eyebrow">The brief</p>
-                        <p className="mt-2 text-sm leading-relaxed text-paper-muted">
+                        <p className="mt-2 text-sm leading-relaxed text-graphite">
                           {cs.brief}
                         </p>
                       </div>
@@ -110,13 +107,15 @@ export default async function LiveStreamingPage() {
                     {cs.delivered && (
                       <div className="mt-5">
                         <p className="eyebrow">What we delivered</p>
-                        <p className="mt-2 text-sm leading-relaxed text-paper-muted">
+                        <p className="mt-2 text-sm leading-relaxed text-graphite">
                           {cs.delivered}
                         </p>
                       </div>
                     )}
                     {cs.viewership && (
-                      <p className="mt-5 text-sm text-amber">{cs.viewership}</p>
+                      <p className="mt-5 text-sm font-medium text-orange">
+                        {cs.viewership}
+                      </p>
                     )}
                   </div>
                   {recording && (
@@ -131,9 +130,9 @@ export default async function LiveStreamingPage() {
             })}
           </div>
         ) : (
-          <div className="rounded-lg border rule p-8 md:p-10">
-            <p className="font-display text-xl text-paper">Case study slot</p>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-paper-muted">
+          <div className="rounded-lg border rule bg-card p-8 md:p-10">
+            <p className="font-display text-xl text-ink">Case study slot</p>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-graphite">
               Each case study covers the event, what was required, what we
               delivered, and where possible the recording and viewership
               figures. Real examples will populate here from the CMS.
@@ -143,10 +142,10 @@ export default async function LiveStreamingPage() {
       </div>
 
       <div className="mt-16 border-t rule pt-10 text-center">
-        <p className="text-paper-muted">Planning a broadcast?</p>
+        <p className="text-graphite">Planning a broadcast?</p>
         <Link
           href="/contact?service=live-streaming"
-          className="mt-4 inline-block rounded-full bg-amber px-6 py-3 font-medium text-ink transition-colors hover:bg-amber-deep"
+          className="btn-fill mt-5 !px-7"
         >
           Get a streaming quote
         </Link>

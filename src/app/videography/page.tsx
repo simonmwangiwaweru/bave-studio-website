@@ -30,17 +30,17 @@ export default async function VideographyPage() {
   });
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+    <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <p className="eyebrow">02 — Videography</p>
-      <h1 className="mt-4 max-w-2xl font-display text-4xl leading-tight tracking-tight text-paper md:text-5xl">
+      <h1 className="mt-4 max-w-2xl font-display text-4xl font-light leading-tight tracking-tight text-ink md:text-6xl">
         Stories that move.
       </h1>
-      <p className="mt-5 max-w-xl leading-relaxed text-paper-muted">
+      <p className="mt-5 max-w-xl text-lg leading-relaxed text-graphite">
         Event films, promos and produced pieces — shot, edited and delivered
         ready to publish.
       </p>
 
-      {/* Showreel — the highest-conversion asset, so it leads the page */}
+      {/* Showreel leads the page — highest-conversion asset */}
       <div className="mt-14">
         <p className="eyebrow mb-4">Showreel</p>
         {showreel ? (
@@ -50,11 +50,8 @@ export default async function VideographyPage() {
             title="Bave Studio showreel"
           />
         ) : (
-          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-sm bg-ink-raised">
-            <span className="absolute inset-0 bg-gradient-to-br from-ink-overlay to-ink-raised" />
-            <span className="relative text-sm text-paper-faint">
-              Showreel coming soon
-            </span>
+          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-[18px] border rule bg-linen">
+            <span className="text-sm text-graphite">Showreel coming soon</span>
           </div>
         )}
       </div>
@@ -78,12 +75,9 @@ export default async function VideographyPage() {
             {["Event film", "Promo"].map((label) => (
               <div
                 key={label}
-                className="relative flex aspect-video items-center justify-center overflow-hidden rounded-sm bg-ink-raised"
+                className="relative flex aspect-video items-center justify-center overflow-hidden rounded-[18px] border rule bg-linen"
               >
-                <span className="absolute inset-0 bg-gradient-to-br from-ink-overlay to-ink-raised" />
-                <span className="relative text-sm text-paper-faint">
-                  {label}
-                </span>
+                <span className="text-sm text-graphite">{label}</span>
               </div>
             ))}
           </div>
@@ -91,10 +85,10 @@ export default async function VideographyPage() {
       </div>
 
       <div className="mt-16 border-t rule pt-10 text-center">
-        <p className="text-paper-muted">Need a film made?</p>
+        <p className="text-graphite">Need a film made?</p>
         <Link
           href="/contact?service=videography"
-          className="mt-4 inline-block rounded-full bg-amber px-6 py-3 font-medium text-ink transition-colors hover:bg-amber-deep"
+          className="btn-fill mt-5 !px-7"
         >
           Start a project
         </Link>

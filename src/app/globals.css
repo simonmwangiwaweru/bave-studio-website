@@ -1,32 +1,25 @@
 @import "tailwindcss";
 
-/* ── Dark Cinema palette ─────────────────────────────────────────
-   Near-black screening-room ground; photographs are the light source.
-   Amber reserved for CTAs and small emphasis only. */
-:root {
-  --ink: #111113;
-  --ink-raised: #18181b;
-  --ink-overlay: #1f1f23;
-  --paper: #edebe6;
-  --paper-muted: #a39f96;
-  --paper-faint: #6b6862;
-  --amber: #e8a33d;
-  --amber-deep: #c9862a;
-  --hairline: rgba(237, 235, 230, 0.1);
-}
+/* ── Warm atelier system (Frontify-inspired) ─────────────────────
+   Cream canvas, ink structure, one orange voice, deep-teal editorial
+   moments. Depth from layered neutrals + hairlines — never shadows. */
+@theme {
+  /* Colors */
+  --color-parchment: #f0f0eb;
+  --color-card: #ffffff;
+  --color-linen: #e1e1db;
+  --color-mist: #d7d7cf;
+  --color-stone: #cbcbc5;
+  --color-ash: #bfbfb8;
+  --color-graphite: #575753;
+  --color-charcoal: #464643;
+  --color-ink: #111110;
+  --color-orange: #ff3b00;
+  --color-teal: #042a2b;
 
-@theme inline {
-  --color-ink: var(--ink);
-  --color-ink-raised: var(--ink-raised);
-  --color-ink-overlay: var(--ink-overlay);
-  --color-paper: var(--paper);
-  --color-paper-muted: var(--paper-muted);
-  --color-paper-faint: var(--paper-faint);
-  --color-amber: var(--amber);
-  --color-amber-deep: var(--amber-deep);
-  --color-hairline: var(--hairline);
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-archivo);
+  /* Fonts (Fraunces ≈ Cranny, Archivo ≈ ABC Diatype) */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
 }
 
 html {
@@ -34,39 +27,43 @@ html {
 }
 
 body {
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-archivo), system-ui, sans-serif;
+  background: var(--color-parchment);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--amber);
-  color: var(--ink);
+  background: var(--color-orange);
+  color: var(--color-card);
 }
 
-/* Editorial numerals + display headings */
 .font-display {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-display);
 }
 
-/* Letterspaced small-caps label, used for section eyebrows */
+/* Letterspaced caption label — section eyebrows */
 .eyebrow {
   font-size: 0.6875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--paper-muted);
+  color: var(--color-graphite);
 }
 
-/* Hairline rules */
+/* Hairline borders carry all structure */
 .rule {
-  border-color: var(--hairline);
+  border-color: var(--color-stone);
+}
+.rule-ink {
+  border-color: var(--color-ink);
 }
 
-/* Image frames: photos glow on the dark ground */
+/* Image tiles: 18px radius gallery objects on the canvas */
 .frame {
-  background: var(--ink-raised);
+  background: var(--color-linen);
+  border-radius: 18px;
   overflow: hidden;
 }
 .frame img {
@@ -74,16 +71,101 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (hover: hover) {
   .frame:hover img {
-    transform: scale(1.025);
+    transform: scale(1.02);
   }
 }
 
-/* Focus visibility on dark ground */
+/* Editorial scrapbook rotation for gallery tiles */
+.rot-a {
+  transform: rotate(-2deg);
+}
+.rot-b {
+  transform: rotate(1.5deg);
+}
+.rot-c {
+  transform: rotate(-1deg);
+}
+.rot-d {
+  transform: rotate(2.5deg);
+}
+@media (hover: hover) {
+  .rot-a:hover,
+  .rot-b:hover,
+  .rot-c:hover,
+  .rot-d:hover {
+    transform: rotate(0deg);
+    transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+.rot-a,
+.rot-b,
+.rot-c,
+.rot-d {
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Pill buttons — the system's only button shapes */
+.btn-fill {
+  display: inline-block;
+  background: var(--color-ink);
+  color: var(--color-card);
+  border-radius: 24px;
+  padding: 12px 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background 200ms ease;
+}
+.btn-fill:hover {
+  background: var(--color-charcoal);
+}
+.btn-ghost {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  border-radius: 24px;
+  padding: 11px 19px;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: background 200ms ease, color 200ms ease;
+}
+.btn-ghost:hover {
+  background: var(--color-ink);
+  color: var(--color-card);
+}
+.btn-ghost-light {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-card);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 11px 19px;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+.btn-ghost-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Pill tag — metadata labels */
+.tag {
+  display: inline-block;
+  background: var(--color-card);
+  border: 1px solid var(--color-stone);
+  border-radius: 9999px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+}
+
 :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--color-orange);
   outline-offset: 3px;
 }

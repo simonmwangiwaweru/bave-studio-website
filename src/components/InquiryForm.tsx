@@ -19,7 +19,7 @@ const budgets = [
 ];
 
 const inputCls =
-  "w-full rounded-md border rule bg-ink-raised px-4 py-3 text-sm text-paper placeholder:text-paper-faint focus:border-amber focus:outline-none";
+  "w-full rounded-lg border rule bg-parchment/60 px-4 py-3 text-sm text-ink placeholder:text-ash focus:border-ink focus:outline-none";
 
 export default function InquiryForm() {
   const params = useSearchParams();
@@ -46,12 +46,12 @@ export default function InquiryForm() {
 
   if (status === "sent") {
     return (
-      <div className="rounded-lg border rule p-8 text-center">
-        <p className="font-display text-2xl text-paper">Thank you!</p>
-        <p className="mt-3 text-paper-muted">
+      <div className="p-4 text-center md:p-8">
+        <p className="font-display text-2xl text-ink">Thank you!</p>
+        <p className="mt-3 text-graphite">
           Your inquiry is in. We usually reply within one business day — if
           it’s urgent, call{" "}
-          <a href="tel:+254798108543" className="text-paper underline">
+          <a href="tel:+254798108543" className="text-ink underline">
             0798 108 543
           </a>
           .
@@ -158,7 +158,7 @@ export default function InquiryForm() {
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-amber">
+        <p className="text-sm text-orange">
           Something went wrong sending that. Please try again, or email{" "}
           <a href="mailto:studiobave9@gmail.com" className="underline">
             studiobave9@gmail.com
@@ -170,7 +170,7 @@ export default function InquiryForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="rounded-full bg-amber px-7 py-3 font-medium text-ink transition-colors hover:bg-amber-deep disabled:opacity-60"
+        className="btn-fill !px-7 disabled:opacity-60"
       >
         {status === "sending" ? "Sending…" : "Send inquiry"}
       </button>

@@ -30,7 +30,7 @@ export default function LiteVideoEmbed({
 
   if (active) {
     return (
-      <div className="relative aspect-video overflow-hidden rounded-sm bg-ink-raised">
+      <div className="relative aspect-video overflow-hidden rounded-[18px] bg-ink">
         <iframe
           src={src}
           title={title}
@@ -47,7 +47,7 @@ export default function LiteVideoEmbed({
       type="button"
       onClick={() => setActive(true)}
       aria-label={`Play video: ${title}`}
-      className="group relative block aspect-video w-full overflow-hidden rounded-sm bg-ink-raised"
+      className="group relative block aspect-video w-full overflow-hidden rounded-[18px] border rule bg-linen"
     >
       {posterUrl ? (
         // eslint-disable-next-line @next/next/no-img-element -- remote poster, facade only
@@ -55,23 +55,24 @@ export default function LiteVideoEmbed({
           src={posterUrl}
           alt=""
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity group-hover:opacity-90"
         />
       ) : (
-        <span className="absolute inset-0 bg-gradient-to-br from-ink-overlay to-ink-raised" />
+        <span className="absolute inset-0 bg-gradient-to-br from-linen to-mist" />
       )}
       <span className="absolute inset-0 flex items-center justify-center">
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-ink/70 backdrop-blur transition-transform group-hover:scale-105">
+        {/* Orange square play control — the design system's one loud moment */}
+        <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-orange transition-transform group-hover:scale-105">
           <svg
             viewBox="0 0 24 24"
-            className="ml-1 h-6 w-6 fill-amber"
+            className="ml-0.5 h-6 w-6 fill-white"
             aria-hidden
           >
             <path d="M8 5v14l11-7z" />
           </svg>
         </span>
       </span>
-      <span className="absolute bottom-3 left-3 text-xs text-paper-muted">
+      <span className="absolute bottom-3 left-4 text-xs text-ink">
         {title}
       </span>
     </button>

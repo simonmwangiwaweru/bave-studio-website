@@ -4,23 +4,23 @@ import PlaceholderFrame from "@/components/PlaceholderFrame";
 import SanityImage from "@/components/SanityImage";
 import { getSiteSettings } from "@/sanity/queries";
 
-export const revalidate = 60;
-
 export const metadata: Metadata = {
   title: "About",
   description:
     "The photographer and filmmaker behind Bave Studio — approach, equipment and experience.",
 };
 
+export const revalidate = 60;
+
 export default async function AboutPage() {
   const settings = await getSiteSettings();
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+    <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <div className="grid gap-12 md:grid-cols-[2fr_3fr] md:gap-16">
         <div>
           {settings?.headshot ? (
-            <div className="frame relative aspect-[3/4]">
+            <div className="frame rot-a relative aspect-[3/4]">
               <SanityImage
                 image={settings.headshot}
                 sizes="(max-width: 768px) 100vw, 40vw"
@@ -29,16 +29,20 @@ export default async function AboutPage() {
             </div>
           ) : (
             /* Studio headshot (asset A1) slots in once the original arrives */
-            <PlaceholderFrame label="Studio headshot" ratio="aspect-[3/4]" />
+            <PlaceholderFrame
+              label="Studio headshot"
+              ratio="aspect-[3/4]"
+              className="rot-a"
+            />
           )}
         </div>
 
         <div>
           <p className="eyebrow">About</p>
-          <h1 className="mt-4 font-display text-4xl leading-tight tracking-tight text-paper md:text-5xl">
+          <h1 className="mt-4 font-display text-4xl font-light leading-tight tracking-tight text-ink md:text-6xl">
             Behind the camera
           </h1>
-          <div className="mt-6 space-y-4 leading-relaxed text-paper-muted">
+          <div className="mt-6 space-y-4 text-lg leading-relaxed text-graphite">
             {settings?.aboutBio ? (
               settings.aboutBio
                 .split(/\n\s*\n/)
@@ -59,9 +63,9 @@ export default async function AboutPage() {
             )}
           </div>
 
-          <div className="mt-10">
+          <div className="mt-10 rounded-lg border rule bg-card p-7">
             <p className="eyebrow">Equipment</p>
-            <p className="mt-3 text-sm leading-relaxed text-paper-muted">
+            <p className="mt-3 text-sm leading-relaxed text-graphite">
               Professional Nikon camera bodies with prime and telephoto glass,
               dedicated video and streaming rigs. Full list available for
               commercial clients on request.
@@ -69,10 +73,7 @@ export default async function AboutPage() {
           </div>
 
           <div className="mt-10">
-            <Link
-              href="/contact"
-              className="inline-block rounded-full bg-amber px-6 py-3 font-medium text-ink transition-colors hover:bg-amber-deep"
-            >
+            <Link href="/contact" className="btn-fill !px-7">
               Work with us
             </Link>
           </div>
