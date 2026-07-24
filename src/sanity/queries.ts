@@ -43,7 +43,10 @@ export type SiteSettings = {
   showreelUrl?: string;
   aboutBio?: string;
   headshot?: GalleryImage;
+  phone?: string;
+  email?: string;
   whatsapp?: string;
+  socialLinks?: string[];
 };
 
 const galleryFields = `
@@ -98,8 +101,26 @@ export async function getCaseStudies(): Promise<CaseStudy[]> {
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   if (!sanityConfigured) return null;
   return client.fetch(
-    `*[_type == "siteSettings"][0]{ showreelUrl, aboutBio, headshot, whatsapp }`,
+    `*[_type == "siteSettings"][0]{
+      showreelUrl, aboutBio, headshot, phone, email, whatsapp, socialLinks
+    }`,
   );
+}
+
+/* Turns a raw profile URL into a friendly label for display. */
+export function labelForSocialUrl(url: string): string {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    if (host.includes("instagram")) return "Instagram";
+    if (host.includes("facebook")) return "Facebook";
+    if (host.includes("tiktok")) return "TikTok";
+    if (host.includes("youtube")) return "YouTube";
+    if (host.includes("linkedin")) return "LinkedIn";
+    if (host.includes("x.com") || host.includes("twitter")) return "X";
+    return host;
+  } catch {
+    return "Link";
+  }
 }
 
 /* Parses a pasted YouTube/Vimeo URL into what LiteVideoEmbed needs. */

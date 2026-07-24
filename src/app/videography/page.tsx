@@ -86,10 +86,7 @@ export default async function VideographyPage() {
 
       <div className="mt-16 border-t rule pt-10 text-center">
         <p className="text-graphite">Need a film made?</p>
-        <Link
-          href="/contact?service=videography"
-          className="btn-fill mt-5 !px-7"
-        >
+        <Link href="/contact" className="btn-fill mt-5 !px-7">
           Start a project
         </Link>
       </div>

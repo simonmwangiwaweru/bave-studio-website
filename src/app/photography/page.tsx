@@ -75,10 +75,7 @@ export default async function PhotographyPage() {
 
       <div className="mt-16 border-t rule pt-10 text-center">
         <p className="text-graphite">Like what you see?</p>
-        <Link
-          href="/contact?service=photography"
-          className="btn-fill mt-5 !px-7"
-        >
+        <Link href="/contact" className="btn-fill mt-5 !px-7">
           Book a shoot
         </Link>
       </div>

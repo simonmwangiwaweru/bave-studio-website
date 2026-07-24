@@ -143,10 +143,7 @@ export default async function LiveStreamingPage() {
 
       <div className="mt-16 border-t rule pt-10 text-center">
         <p className="text-graphite">Planning a broadcast?</p>
-        <Link
-          href="/contact?service=live-streaming"
-          className="btn-fill mt-5 !px-7"
-        >
+        <Link href="/contact" className="btn-fill mt-5 !px-7">
           Get a streaming quote
         </Link>
       </div>
