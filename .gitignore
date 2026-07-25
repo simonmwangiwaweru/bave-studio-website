@@ -40,4 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
+# sanity studio build output (npx sanity deploy) — not part of the Next.js app
+/dist
+/.sanity
