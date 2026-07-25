@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import PlaceholderFrame from "@/components/PlaceholderFrame";
+import DarkGalleryTiles from "@/components/DarkGalleryTiles";
+import { urlFor } from "@/sanity/client";
+import { getGalleries } from "@/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -8,31 +9,49 @@ export const metadata: Metadata = {
     "Selected photography, videography and live streaming work by Bave Studio.",
 };
 
+export const revalidate = 60;
+
 const categories = [
   {
     href: "/photography",
-    title: "Photography",
-    blurb: "Candid portraits, events, corporate coverage.",
+    category: "photography",
     label: "Photography",
-    rot: "rot-a",
+    blurb: "Candid portraits, events, corporate coverage.",
+    tag: "01 — Stills",
   },
   {
     href: "/videography",
-    title: "Videography",
-    blurb: "Showreel, event films, promos.",
+    category: "videography",
     label: "Videography",
-    rot: "rot-b",
+    blurb: "Showreel, event films, promos.",
+    tag: "02 — Motion",
   },
   {
     href: "/live-streaming",
-    title: "Live Streaming",
+    category: "live-streaming",
+    label: "Live Streaming",
     blurb: "Multi-camera broadcast, case studies.",
-    label: "Live streaming",
-    rot: "rot-c",
+    tag: "03 — Live",
   },
 ];
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const galleries = await Promise.all(
+    categories.map((c) => getGalleries(c.category)),
+  );
+
+  const items = categories.map((c, i) => {
+    const firstImage = galleries[i][0]?.images?.[0];
+    return {
+      href: c.href,
+      label: c.label,
+      blurb: c.blurb,
+      tag: c.tag,
+      src: firstImage ? urlFor(firstImage).width(700).height(1070).url() : undefined,
+      alt: firstImage?.alt,
+    };
+  });
+
   return (
     <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <p className="eyebrow">Portfolio</p>
@@ -43,20 +62,8 @@ export default function WorkPage() {
         Three disciplines, one standard. Pick a lane or browse everything.
       </p>
 
-      <div className="mt-14 grid gap-8 md:grid-cols-3">
-        {categories.map((c) => (
-          <Link key={c.href} href={c.href} className="group">
-            <PlaceholderFrame
-              label={c.label}
-              ratio="aspect-[4/3]"
-              className={c.rot}
-            />
-            <h2 className="mt-5 font-display text-2xl text-ink transition-colors group-hover:text-orange">
-              {c.title}
-            </h2>
-            <p className="mt-1 text-sm text-graphite">{c.blurb}</p>
-          </Link>
-        ))}
+      <div className="mt-14">
+        <DarkGalleryTiles items={items} />
       </div>
     </div>
   );

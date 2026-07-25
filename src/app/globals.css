@@ -169,3 +169,163 @@ body {
   outline: 2px solid var(--color-orange);
   outline-offset: 3px;
 }
+
+/* ── Cinematic hero carousel (homepage) ──────────────────────────
+   Horizontal scroll-snap track; on browsers that support CSS scroll-
+   driven animations (Chromium), each slide's background zooms as it
+   scrolls into view and the progress bar tracks scroll position. On
+   Safari/Firefox this degrades to a plain swipeable gallery — no JS
+   fallback needed, scroll-snap alone still works everywhere. */
+.hero-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: 100%;
+}
+.hero-track::-webkit-scrollbar {
+  display: none;
+}
+.hero-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  position: relative;
+  height: 100%;
+}
+.hero-slide-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-slide-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.14);
+}
+.hero-cap {
+  position: absolute;
+  left: 24px;
+  bottom: 88px;
+  z-index: 10;
+  color: var(--color-card);
+  opacity: 0.9;
+}
+.hero-bar-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+.hero-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: var(--color-orange);
+  transform-origin: left;
+  transform: scaleX(0.02);
+}
+
+.hero-page {
+  transition: color 200ms ease;
+}
+
+@supports (animation-timeline: view()) {
+  .hero-slide-bg img {
+    animation: heroZoom linear both;
+  }
+  .hero-cap {
+    animation: heroCapUp 0.5s linear both;
+    animation-range: entry 0% cover 40%;
+  }
+  .hero-bar-fill {
+    animation: heroBarGrow linear both;
+  }
+  .hero-page {
+    animation: heroPageActive linear both;
+    animation-range: contain 0% contain 100%;
+  }
+}
+@keyframes heroPageActive {
+  0%,
+  100% {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    color: var(--color-card);
+  }
+}
+@keyframes heroZoom {
+  from {
+    transform: scale(1.14);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes heroCapUp {
+  from {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes heroBarGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Dark gallery tiles (/work) ───────────────────────────────────
+   Moody ink-ground reveal for the three discipline tiles: desaturated
+   until scrolled into view, then resolves to full color/contrast. */
+.gallery-tile-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gallery-tag {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-card);
+}
+@supports (animation-timeline: view()) {
+  .gallery-tile-img {
+    animation: galleryReveal linear both;
+  }
+}
+@keyframes galleryReveal {
+  from {
+    filter: brightness(0.55) saturate(0.6);
+  }
+  to {
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-bg img,
+  .hero-cap,
+  .hero-bar-fill,
+  .gallery-tile-img {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}

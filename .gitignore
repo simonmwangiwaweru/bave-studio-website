@@ -43,3 +43,5 @@ next-env.d.ts
 # sanity studio build output (npx sanity deploy) — not part of the Next.js app
 /dist
 /.sanity
+
+.vercel

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import PlaceholderFrame from "@/components/PlaceholderFrame";
 import SanityImage from "@/components/SanityImage";
+import CinematicHero from "@/components/CinematicHero";
+import { urlFor } from "@/sanity/client";
 import { getFeaturedImages, getTestimonials } from "@/sanity/queries";
 
 export const revalidate = 60;
@@ -31,6 +33,29 @@ const services = [
 
 const rotations = ["rot-a", "rot-b", "rot-c", "rot-d"];
 
+const heroCopy = (
+  <>
+    <p className="text-[11px] uppercase tracking-[0.18em] text-white/60">
+      Photography · Videography · Live Streaming
+    </p>
+    <h1 className="mx-auto mt-7 max-w-3xl font-display text-5xl font-light leading-[0.98] tracking-tight text-white md:text-7xl lg:text-[80px]">
+      Work worth remembering, captured properly.
+    </h1>
+    <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
+      Bave Studio covers events, weddings, corporate and commercial briefs —
+      stills, film and live broadcast under one roof.
+    </p>
+    <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <Link href="/contact" className="btn-fill !bg-white !text-ink hover:!bg-linen">
+        Start a project
+      </Link>
+      <Link href="/work" className="btn-ghost-light">
+        See the work&nbsp;&nbsp;▷
+      </Link>
+    </div>
+  </>
+);
+
 export default async function Home() {
   const [featured, testimonials] = await Promise.all([
     getFeaturedImages(),
@@ -38,70 +63,66 @@ export default async function Home() {
   ]);
   const testimonial = testimonials[0];
 
+  const heroSlides = featured.slice(0, 6).map((item) => ({
+    src: urlFor(item.image).width(1920).height(1200).url(),
+    alt: item.image.alt ?? "",
+    caption: item.galleryTitle,
+  }));
+
   return (
     <>
-      {/* Deep-teal editorial hero */}
-      <section className="bg-teal">
-        <div className="mx-auto max-w-[1200px] px-5 py-24 text-center md:px-8 md:py-36">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-white/60">
-            Photography · Videography · Live Streaming
-          </p>
-          <h1 className="mx-auto mt-7 max-w-3xl font-display text-5xl font-light leading-[0.98] tracking-tight text-white md:text-7xl lg:text-[80px]">
-            Work worth remembering, captured properly.
-          </h1>
-          <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
-            Bave Studio covers events, weddings, corporate and commercial
-            briefs — stills, film and live broadcast under one roof.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="btn-fill !bg-white !text-ink hover:!bg-linen"
-            >
-              Start a project
+      {heroSlides.length >= 3 ? (
+        <>
+          <CinematicHero slides={heroSlides}>{heroCopy}</CinematicHero>
+          <p className="mx-auto max-w-[1200px] px-5 pt-6 text-right text-sm text-graphite md:px-8">
+            <Link href="/work" className="underline-offset-4 hover:text-ink hover:underline">
+              Full portfolio →
             </Link>
-            <Link href="/work" className="btn-ghost-light">
-              See the work&nbsp;&nbsp;▷
-            </Link>
-          </div>
-        </div>
-      </section>
+          </p>
+        </>
+      ) : (
+        <>
+          {/* Deep-teal editorial hero — fallback until 3+ featured images exist */}
+          <section className="bg-teal">
+            <div className="mx-auto max-w-[1200px] px-5 py-24 text-center md:px-8 md:py-36">
+              {heroCopy}
+            </div>
+          </section>
 
-      {/* Scrapbook work strip on the cream canvas */}
-      <section className="mx-auto max-w-[1200px] px-5 pt-20 md:px-8 md:pt-28">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-2">
-          {featured.length >= 4
-            ? featured.slice(0, 4).map((item, i) => (
-                <div
-                  key={i}
-                  className={`frame relative aspect-[4/5] ${rotations[i]} md:-mx-1`}
-                >
-                  <SanityImage image={item.image} priority={i < 2} />
-                </div>
-              ))
-            : [
-                "Candid portrait",
-                "Corporate event",
-                "Collaboration",
-                "Group work",
-              ].map((label, i) => (
-                <PlaceholderFrame
-                  key={label}
-                  label={label}
-                  ratio="aspect-[4/5]"
-                  className={`${rotations[i]} md:-mx-1`}
-                />
-              ))}
-        </div>
-        <p className="mt-10 text-right text-sm text-graphite">
-          <Link
-            href="/work"
-            className="underline-offset-4 hover:text-ink hover:underline"
-          >
-            Full portfolio →
-          </Link>
-        </p>
-      </section>
+          {/* Scrapbook work strip on the cream canvas */}
+          <section className="mx-auto max-w-[1200px] px-5 pt-20 md:px-8 md:pt-28">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-2">
+              {featured.length >= 4
+                ? featured.slice(0, 4).map((item, i) => (
+                    <div
+                      key={i}
+                      className={`frame relative aspect-[4/5] ${rotations[i]} md:-mx-1`}
+                    >
+                      <SanityImage image={item.image} priority={i < 2} />
+                    </div>
+                  ))
+                : [
+                    "Candid portrait",
+                    "Corporate event",
+                    "Collaboration",
+                    "Group work",
+                  ].map((label, i) => (
+                    <PlaceholderFrame
+                      key={label}
+                      label={label}
+                      ratio="aspect-[4/5]"
+                      className={`${rotations[i]} md:-mx-1`}
+                    />
+                  ))}
+            </div>
+            <p className="mt-10 text-right text-sm text-graphite">
+              <Link href="/work" className="underline-offset-4 hover:text-ink hover:underline">
+                Full portfolio →
+              </Link>
+            </p>
+          </section>
+        </>
+      )}
 
       {/* Three service lines as white cards */}
       <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-28">
