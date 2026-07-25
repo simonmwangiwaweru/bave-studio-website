@@ -1,0 +1,458 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Web address"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Photography",
+              "value": "photography"
+            },
+            {
+              "title": "Videography",
+              "value": "videography"
+            },
+            {
+              "title": "Live Streaming",
+              "value": "live-streaming"
+            }
+          ],
+          "layout": "radio"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "photography",
+                  "videography",
+                  "live-streaming"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "description": "e.g. Weddings, Corporate, Portrait",
+        "name": "subcategory",
+        "type": "string",
+        "title": "Sub-category"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "alt",
+                "type": "string",
+                "title": "Describe this photo (for search engines & screen readers)"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Paste the full video URL for video projects.",
+        "name": "videoUrl",
+        "type": "url",
+        "title": "Video link (YouTube or Vimeo)"
+      },
+      {
+        "name": "client",
+        "type": "string",
+        "title": "Client name"
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "title": "Shoot date"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text",
+        "title": "About this project"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean",
+        "title": "Show on homepage"
+      },
+      {
+        "initialValue": true,
+        "description": "Turn off to hide from the site without deleting.",
+        "name": "published",
+        "type": "boolean"
+      },
+      {
+        "description": "Lower numbers appear first.",
+        "name": "order",
+        "type": "number",
+        "title": "Display order"
+      }
+    ],
+    "name": "gallery",
+    "type": "document",
+    "title": "Gallery / Project"
+  },
+  {
+    "fields": [
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "quote",
+        "type": "text",
+        "title": "What they said"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "author",
+        "type": "string",
+        "title": "Client name"
+      },
+      {
+        "name": "organisation",
+        "type": "string",
+        "title": "Organisation or event"
+      },
+      {
+        "options": {
+          "list": [
+            "photography",
+            "videography",
+            "live-streaming"
+          ]
+        },
+        "name": "service",
+        "type": "string",
+        "title": "Related service"
+      },
+      {
+        "initialValue": true,
+        "name": "published",
+        "type": "boolean"
+      }
+    ],
+    "name": "testimonial",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Event name"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Web address"
+      },
+      {
+        "description": "e.g. Conference, Church service, Wedding",
+        "name": "eventType",
+        "type": "string",
+        "title": "Type of event"
+      },
+      {
+        "rows": 3,
+        "name": "brief",
+        "type": "text",
+        "title": "What was required"
+      },
+      {
+        "rows": 3,
+        "name": "delivered",
+        "type": "text",
+        "title": "What we delivered"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "recordingUrl",
+        "type": "url",
+        "title": "Recording link (YouTube/Facebook)"
+      },
+      {
+        "description": "e.g. \"1,200 live viewers\" — only if known.",
+        "name": "viewership",
+        "type": "string",
+        "title": "Viewership figures"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Describe this photo"
+          }
+        ],
+        "name": "coverImage",
+        "type": "image",
+        "title": "Cover image"
+      },
+      {
+        "initialValue": true,
+        "name": "published",
+        "type": "boolean"
+      }
+    ],
+    "name": "caseStudy",
+    "type": "document",
+    "title": "Streaming Case Study"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "showreelUrl",
+        "type": "url",
+        "title": "Showreel video link"
+      },
+      {
+        "rows": 8,
+        "name": "aboutBio",
+        "type": "text",
+        "title": "About page biography"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "headshot",
+        "type": "image",
+        "title": "Your photo (About page)"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "Phone number"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "title": "Email address"
+      },
+      {
+        "description": "e.g. 254798108543 — leave empty to hide WhatsApp links.",
+        "name": "whatsapp",
+        "type": "string",
+        "title": "WhatsApp number (international format)"
+      },
+      {
+        "of": [
+          {
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "type": "url"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "array",
+        "title": "Social media links"
+      },
+      {
+        "rows": 2,
+        "name": "seoDescription",
+        "type": "text",
+        "title": "Site description (search engines)"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  }
+]
