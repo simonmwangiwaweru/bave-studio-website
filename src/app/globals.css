@@ -329,3 +329,44 @@ body {
     opacity: 1 !important;
   }
 }
+
+/* ── Parallax filmstrip (/photography) ────────────────────────────
+   Real horizontally-scrollable track (native touch/trackpad/keyboard
+   support); JS only handles the per-image counter-shift + wheel-to-
+   horizontal redirect. Each image sits oversized (125%) inside its
+   frame so the counter-shift never reveals an edge. */
+.parallax-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.parallax-track::-webkit-scrollbar {
+  display: none;
+}
+.parallax-frame {
+  position: relative;
+  flex: 0 0 auto;
+  height: 60vh;
+  min-height: 320px;
+  max-height: 560px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--color-linen);
+}
+.parallax-frame img {
+  position: absolute;
+  top: 0;
+  left: -12.5%;
+  width: 125%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax-frame img {
+    transform: none !important;
+  }
+}
