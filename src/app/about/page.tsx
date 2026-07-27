@@ -14,6 +14,8 @@ export const revalidate = 60;
 
 export default async function AboutPage() {
   const settings = await getSiteSettings();
+  const bts = settings?.behindTheScenes ?? [];
+  const btsRotations = ["rot-b", "rot-c"];
 
   return (
     <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
@@ -25,6 +27,7 @@ export default async function AboutPage() {
                 image={settings.headshot}
                 sizes="(max-width: 768px) 100vw, 40vw"
                 priority
+                className="about-reveal"
               />
             </div>
           ) : (
@@ -34,6 +37,26 @@ export default async function AboutPage() {
               ratio="aspect-[3/4]"
               className="rot-a"
             />
+          )}
+
+          {bts.length > 0 && (
+            <div className="mt-8">
+              <p className="eyebrow mb-3">On location</p>
+              <div className="grid grid-cols-2 gap-4">
+                {bts.map((img, i) => (
+                  <div
+                    key={i}
+                    className={`frame relative aspect-[4/5] ${btsRotations[i % 2]}`}
+                  >
+                    <SanityImage
+                      image={img}
+                      sizes="(max-width: 768px) 50vw, 20vw"
+                      className="about-reveal"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
 

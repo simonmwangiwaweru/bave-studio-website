@@ -43,6 +43,7 @@ export type SiteSettings = {
   showreelUrl?: string;
   aboutBio?: string;
   headshot?: GalleryImage;
+  behindTheScenes?: GalleryImage[];
   phone?: string;
   email?: string;
   whatsapp?: string;
@@ -102,7 +103,9 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
   if (!sanityConfigured) return null;
   return client.fetch(
     `*[_type == "siteSettings"][0]{
-      showreelUrl, aboutBio, headshot, phone, email, whatsapp, socialLinks
+      showreelUrl, aboutBio, phone, email, whatsapp, socialLinks,
+      headshot{ asset, alt },
+      behindTheScenes[]{ asset, alt }
     }`,
   );
 }

@@ -21,6 +21,34 @@ export const siteSettings = defineType({
       title: "Your photo (About page)",
       type: "image",
       options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Describe this photo",
+          type: "string",
+        }),
+      ],
+    }),
+    defineField({
+      name: "behindTheScenes",
+      title: "Behind-the-scenes photos (About page)",
+      description:
+        "One or two supporting shots of you at work — shown alongside the headshot.",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Describe this photo",
+              type: "string",
+            }),
+          ],
+        },
+      ],
+      validation: (r) => r.max(2),
     }),
     defineField({
       name: "phone",

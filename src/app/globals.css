@@ -370,3 +370,32 @@ body {
     transform: none !important;
   }
 }
+
+/* ── About-page reveal ─────────────────────────────────────────────
+   Tied to ordinary page scroll (no custom scroll container, so this
+   uses the plain `view()` timeline shorthand — each image resolves
+   from a soft, desaturated state to full clarity as it enters view). */
+@supports (animation-timeline: view()) {
+  .about-reveal {
+    animation: aboutReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+}
+@keyframes aboutReveal {
+  from {
+    filter: saturate(0.35) brightness(0.92);
+    transform: scale(1.06);
+  }
+  to {
+    filter: saturate(1) brightness(1);
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-reveal {
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
