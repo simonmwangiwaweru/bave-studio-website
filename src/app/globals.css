@@ -22,6 +22,35 @@
   --font-sans: var(--font-archivo), system-ui, sans-serif;
 }
 
+/* Dark variant of the same tokens — same warm undertone family, inverted
+   lightness. Applied automatically on system dark-mode preference, or
+   explicitly via [data-theme] once a visitor picks one with the toggle.
+   Orange and teal are already dark-legible, so they're left unchanged. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-parchment: #16160f;
+    --color-card: #201f18;
+    --color-linen: #2a2921;
+    --color-mist: #34332a;
+    --color-stone: #46453a;
+    --color-ash: #57564a;
+    --color-graphite: #b9b9ae;
+    --color-charcoal: #dcdccf;
+    --color-ink: #f5f5ee;
+  }
+}
+:root[data-theme="dark"] {
+  --color-parchment: #16160f;
+  --color-card: #201f18;
+  --color-linen: #2a2921;
+  --color-mist: #34332a;
+  --color-stone: #46453a;
+  --color-ash: #57564a;
+  --color-graphite: #b9b9ae;
+  --color-charcoal: #dcdccf;
+  --color-ink: #f5f5ee;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -33,6 +62,12 @@ body {
   letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
 }
 
 ::selection {

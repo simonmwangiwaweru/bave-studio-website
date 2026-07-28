@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const nav = [
   { href: "/work", label: "Work" },
@@ -51,28 +52,32 @@ export default function Header() {
           <Link href="/contact" className="btn-fill">
             Start a project
           </Link>
+          <ThemeToggle />
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-          className="flex h-10 w-10 items-center justify-center md:hidden"
-        >
-          <span className="relative block h-3 w-5">
-            <span
-              className={`absolute left-0 top-0 h-px w-full bg-ink transition-transform ${
-                open ? "top-1/2 rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`absolute left-0 bottom-0 h-px w-full bg-ink transition-transform ${
-                open ? "bottom-1/2 -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="flex h-10 w-10 items-center justify-center"
+          >
+            <span className="relative block h-3 w-5">
+              <span
+                className={`absolute left-0 top-0 h-px w-full bg-ink transition-transform ${
+                  open ? "top-1/2 rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`absolute left-0 bottom-0 h-px w-full bg-ink transition-transform ${
+                  open ? "bottom-1/2 -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
