@@ -33,7 +33,7 @@ export const siteSettings = defineType({
       name: "behindTheScenes",
       title: "Behind-the-scenes photos (About page)",
       description:
-        "One or two supporting shots of you at work — shown alongside the headshot.",
+        "A few supporting shots of you at work — shown alongside the headshot.",
       type: "array",
       of: [
         {
@@ -48,7 +48,7 @@ export const siteSettings = defineType({
           ],
         },
       ],
-      validation: (r) => r.max(2),
+      validation: (r) => r.max(3),
     }),
     defineField({
       name: "phone",
