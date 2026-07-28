@@ -78,6 +78,9 @@ export default async function VideographyPage() {
     ...(settings?.behindTheScenes ?? []).slice(0, 2),
   ].slice(0, 3);
 
+  const showreelBackdrop =
+    settings?.behindTheScenes?.[2] ?? settings?.behindTheScenes?.[0];
+
   return (
     <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <p className="eyebrow">02 — Videography</p>
@@ -135,8 +138,30 @@ export default async function VideographyPage() {
             title="Bave Studio showreel"
           />
         ) : (
-          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-[18px] border rule bg-linen">
-            <span className="text-sm text-graphite">Showreel coming soon</span>
+          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-[18px] border rule">
+            {showreelBackdrop ? (
+              <SanityImage
+                image={showreelBackdrop}
+                sizes="100vw"
+                className="brightness-[0.45] saturate-[0.7]"
+              />
+            ) : (
+              <span className="absolute inset-0 bg-linen" />
+            )}
+            <div className="relative flex flex-col items-center gap-3">
+              <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-white/15">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="ml-0.5 h-6 w-6 fill-white/70"
+                  aria-hidden
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+              <span className="text-sm text-white/85">
+                Showreel coming soon
+              </span>
+            </div>
           </div>
         )}
       </div>
