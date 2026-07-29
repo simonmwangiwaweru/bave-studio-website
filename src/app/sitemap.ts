@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://bavestudio.com";
+const BASE = "https://bave-studio-live.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

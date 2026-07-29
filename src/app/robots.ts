@@ -3,6 +3,6 @@ import type { MetadataRoute } from "next";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://bavestudio.com/sitemap.xml",
+    sitemap: "https://bave-studio-live.vercel.app/sitemap.xml",
   };
 }

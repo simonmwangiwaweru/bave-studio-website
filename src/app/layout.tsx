@@ -20,7 +20,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bavestudio.com"),
+  metadataBase: new URL("https://bave-studio-live.vercel.app"),
   title: {
     default: "Bave Studio — Photography, Videography & Live Streaming",
     template: "%s — Bave Studio",
@@ -43,7 +43,7 @@ const businessJsonLd = {
     "Photography, videography and live streaming for events, weddings, corporate and commercial clients.",
   telephone: "+254798108543",
   email: "studiobave9@gmail.com",
-  url: "https://bavestudio.com",
+  url: "https://bave-studio-live.vercel.app",
   areaServed: "Kenya",
 };
 
