@@ -18,8 +18,9 @@ export default async function ContactPage() {
   const settings = await getSiteSettings();
 
   const phoneDisplay = settings?.phone || DEFAULT_PHONE;
-  const phoneTel = settings?.phone
-    ? `+${settings.phone.replace(/\D/g, "")}`
+  const phoneDigits = settings?.phone?.replace(/\D/g, "");
+  const phoneTel = phoneDigits
+    ? `+${phoneDigits.replace(/^0/, "254")}`
     : DEFAULT_PHONE_TEL;
   const email = settings?.email || DEFAULT_EMAIL;
   const whatsapp = settings?.whatsapp || DEFAULT_WHATSAPP;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import LiteVideoEmbed from "@/components/LiteVideoEmbed";
+import SanityImage from "@/components/SanityImage";
 import { getCaseStudies, parseVideoUrl } from "@/sanity/queries";
 
 export const metadata: Metadata = {
@@ -118,12 +119,21 @@ export default async function LiveStreamingPage() {
                       </p>
                     )}
                   </div>
-                  {recording && (
+                  {recording ? (
                     <LiteVideoEmbed
                       provider={recording.provider}
                       videoId={recording.videoId}
                       title={cs.title}
                     />
+                  ) : (
+                    cs.coverImage && (
+                      <div className="frame relative aspect-video">
+                        <SanityImage
+                          image={cs.coverImage}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    )
                   )}
                 </article>
               );

@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import LiteVideoEmbed from "@/components/LiteVideoEmbed";
 import SanityImage from "@/components/SanityImage";
 import {
   getGalleries,
   getSiteSettings,
-  parseVideoUrl,
   type GalleryImage,
 } from "@/sanity/queries";
 
@@ -58,28 +56,15 @@ const capabilities = [
 ];
 
 export default async function VideographyPage() {
-  const [settings, galleries, photoGalleries] = await Promise.all([
+  const [settings, photoGalleries] = await Promise.all([
     getSiteSettings(),
-    getGalleries("videography"),
     getGalleries("photography"),
   ]);
-
-  const showreel = settings?.showreelUrl
-    ? parseVideoUrl(settings.showreelUrl)
-    : null;
-
-  const projects = galleries.flatMap((g) => {
-    const parsed = g.videoUrl ? parseVideoUrl(g.videoUrl) : null;
-    return parsed ? [{ ...parsed, title: g.title, id: g._id }] : [];
-  });
 
   const processImages: GalleryImage[] = [
     ...photoGalleries.flatMap((g) => g.images ?? []).slice(0, 1),
     ...(settings?.behindTheScenes ?? []).slice(0, 2),
   ].slice(0, 3);
-
-  const showreelBackdrop =
-    settings?.behindTheScenes?.[2] ?? settings?.behindTheScenes?.[0];
 
   return (
     <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
@@ -126,72 +111,6 @@ export default async function VideographyPage() {
             </p>
           </div>
         ))}
-      </div>
-
-      {/* Showreel leads the page — highest-conversion asset */}
-      <div className="mt-14">
-        <p className="eyebrow mb-4">Showreel</p>
-        {showreel ? (
-          <LiteVideoEmbed
-            provider={showreel.provider}
-            videoId={showreel.videoId}
-            title="Bave Studio showreel"
-          />
-        ) : (
-          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-[18px] border rule">
-            {showreelBackdrop ? (
-              <SanityImage
-                image={showreelBackdrop}
-                sizes="100vw"
-                className="brightness-[0.45] saturate-[0.7]"
-              />
-            ) : (
-              <span className="absolute inset-0 bg-linen" />
-            )}
-            <div className="relative flex flex-col items-center gap-3">
-              <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-white/15">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="ml-0.5 h-6 w-6 fill-white/70"
-                  aria-hidden
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </span>
-              <span className="text-sm text-white/85">
-                Showreel coming soon
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Individual projects from the CMS */}
-      <div className="mt-16">
-        <p className="eyebrow mb-4">Selected projects</p>
-        {projects.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2">
-            {projects.map((p) => (
-              <LiteVideoEmbed
-                key={p.id}
-                provider={p.provider}
-                videoId={p.videoId}
-                title={p.title}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2">
-            {["Event film", "Promo"].map((label) => (
-              <div
-                key={label}
-                className="relative flex aspect-video items-center justify-center overflow-hidden rounded-[18px] border rule bg-linen"
-              >
-                <span className="text-sm text-graphite">{label}</span>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
 
       <div className="mt-16 border-t rule pt-10 text-center">
