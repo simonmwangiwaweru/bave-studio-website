@@ -50,16 +50,21 @@ export const caseStudy = defineType({
       description: "e.g. \"1,200 live viewers\" — only if known.",
     }),
     defineField({
-      name: "coverImage",
-      title: "Cover image",
-      type: "image",
-      options: { hotspot: true },
-      fields: [
-        defineField({
-          name: "alt",
-          title: "Describe this photo",
-          type: "string",
-        }),
+      name: "images",
+      title: "Photos",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Describe this photo",
+              type: "string",
+            }),
+          ],
+        },
       ],
     }),
     defineField({

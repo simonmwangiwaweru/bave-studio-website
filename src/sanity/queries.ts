@@ -36,7 +36,7 @@ export type CaseStudy = {
   delivered?: string;
   recordingUrl?: string;
   viewership?: string;
-  coverImage?: GalleryImage;
+  images?: GalleryImage[];
 };
 
 export type SiteSettings = {
@@ -94,7 +94,7 @@ export async function getCaseStudies(): Promise<CaseStudy[]> {
   return client.fetch(
     `*[_type == "caseStudy" && published == true]{
       _id, title, eventType, brief, delivered, recordingUrl, viewership,
-      coverImage{ asset, alt }
+      images[]{ asset, alt }
     }`,
   );
 }

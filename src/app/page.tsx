@@ -3,7 +3,7 @@ import PlaceholderFrame from "@/components/PlaceholderFrame";
 import SanityImage from "@/components/SanityImage";
 import CinematicHero from "@/components/CinematicHero";
 import { urlFor } from "@/sanity/client";
-import { getFeaturedImages, getTestimonials } from "@/sanity/queries";
+import { getFeaturedImages, getGalleries } from "@/sanity/queries";
 
 export const revalidate = 60;
 
@@ -57,17 +57,25 @@ const heroCopy = (
 );
 
 export default async function Home() {
-  const [featured, testimonials] = await Promise.all([
+  const [featured, photoGalleries] = await Promise.all([
     getFeaturedImages(),
-    getTestimonials(),
+    getGalleries("photography"),
   ]);
-  const testimonial = testimonials[0];
 
   const heroSlides = featured.slice(0, 6).map((item) => ({
     src: urlFor(item.image).width(1920).height(1200).url(),
     alt: item.image.alt ?? "",
     caption: item.galleryTitle,
   }));
+
+  // More work, below the fold — every photo not already used in the hero,
+  // so the homepage draws from the full range of galleries rather than
+  // stopping at whatever made the featured cut.
+  const heroRefs = new Set(featured.slice(0, 6).map((f) => f.image.asset._ref));
+  const moreWork = photoGalleries
+    .flatMap((g) => g.images ?? [])
+    .filter((img) => !heroRefs.has(img.asset._ref))
+    .slice(0, 8);
 
   return (
     <>
@@ -147,24 +155,29 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Social proof — populated from Sanity testimonials */}
-      <section className="border-y rule bg-linen/60">
-        <div className="mx-auto max-w-4xl px-5 py-16 text-center md:px-8 md:py-20">
-          <p className="eyebrow">What clients say</p>
-          <blockquote className="mx-auto mt-6 max-w-2xl font-display text-xl font-light leading-relaxed text-ink md:text-2xl">
-            {testimonial
-              ? `“${testimonial.quote}”`
-              : "“Testimonial from a real client will appear here — professional, attributed, and specific about the work delivered.”"}
-          </blockquote>
-          <p className="mt-5 text-sm text-graphite">
-            {testimonial
-              ? [testimonial.author, testimonial.organisation]
-                  .filter(Boolean)
-                  .join(" · ")
-              : "Client name · Organisation"}
-          </p>
-        </div>
-      </section>
+      {/* More work — every photo not already used in the hero above */}
+      {moreWork.length > 0 && (
+        <section className="border-y rule bg-linen/60">
+          <div className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-28">
+            <p className="eyebrow">More from the studio</p>
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-3">
+              {moreWork.map((img, i) => (
+                <div
+                  key={img.asset._ref}
+                  className={`frame relative aspect-[4/5] ${rotations[i % rotations.length]}`}
+                >
+                  <SanityImage image={img} sizes="(max-width: 768px) 50vw, 25vw" />
+                </div>
+              ))}
+            </div>
+            <p className="mt-10 text-right text-sm text-graphite">
+              <Link href="/photography" className="underline-offset-4 hover:text-ink hover:underline">
+                See the full gallery →
+              </Link>
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Contact band */}
       <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-28">
