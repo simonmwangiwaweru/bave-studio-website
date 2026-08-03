@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import DarkGalleryTiles from "@/components/DarkGalleryTiles";
 import { urlFor } from "@/sanity/client";
-import { getGalleries } from "@/sanity/queries";
+import { getCaseStudies, getGalleries, getSiteSettings } from "@/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -36,19 +36,34 @@ const categories = [
 ];
 
 export default async function WorkPage() {
-  const galleries = await Promise.all(
-    categories.map((c) => getGalleries(c.category)),
-  );
+  const [galleries, settings, caseStudies] = await Promise.all([
+    Promise.all(categories.map((c) => getGalleries(c.category))),
+    getSiteSettings(),
+    getCaseStudies(),
+  ]);
+
+  // Videography and live-streaming don't have their own gallery documents
+  // yet, so fall back to real photos from elsewhere rather than a
+  // placeholder: the behind-the-scenes shot of the camera rig, and the
+  // first live-streaming case study's photo.
+  const videographyFallback = settings?.behindTheScenes?.[0];
+  const liveStreamingFallback = caseStudies.flatMap((cs) => cs.images ?? [])[0];
 
   const items = categories.map((c, i) => {
-    const firstImage = galleries[i][0]?.images?.[0];
+    const image =
+      galleries[i][0]?.images?.[0] ??
+      (c.category === "videography"
+        ? videographyFallback
+        : c.category === "live-streaming"
+          ? liveStreamingFallback
+          : undefined);
     return {
       href: c.href,
       label: c.label,
       blurb: c.blurb,
       tag: c.tag,
-      src: firstImage ? urlFor(firstImage).width(700).height(1070).url() : undefined,
-      alt: firstImage?.alt,
+      src: image ? urlFor(image).width(700).height(1070).url() : undefined,
+      alt: image?.alt,
     };
   });
 
