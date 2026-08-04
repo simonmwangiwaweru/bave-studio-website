@@ -39,7 +39,7 @@ const heroCopy = (
       Photography · Videography · Live Streaming
     </p>
     <h1 className="mx-auto mt-7 max-w-3xl font-display text-5xl font-light leading-[0.98] tracking-tight text-white md:text-7xl lg:text-[80px]">
-      Work worth remembering, captured properly.
+      Moments worth keeping, captured beautifully.
     </h1>
     <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
       Bave Studio covers events, weddings, corporate and commercial briefs —

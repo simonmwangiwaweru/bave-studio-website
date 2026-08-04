@@ -30,7 +30,7 @@ export default async function PhotographyPage() {
     <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <p className="eyebrow">01 — Photography</p>
       <h1 className="mt-4 max-w-2xl font-display text-4xl font-light leading-tight tracking-tight text-ink md:text-6xl">
-        People at work, caught honestly.
+        People, caught in their best light.
       </h1>
       <p className="mt-5 max-w-xl text-lg leading-relaxed text-graphite">
         Our strongest work is the candid frame — a genuine reaction, clean

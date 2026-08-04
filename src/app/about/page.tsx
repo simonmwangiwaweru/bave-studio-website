@@ -63,7 +63,7 @@ export default async function AboutPage() {
         <div>
           <p className="eyebrow">About</p>
           <h1 className="mt-4 font-display text-4xl font-light leading-tight tracking-tight text-ink md:text-6xl">
-            Behind the camera
+            The person behind the lens
           </h1>
           <div className="mt-6 space-y-4 text-lg leading-relaxed text-graphite">
             {settings?.aboutBio ? (

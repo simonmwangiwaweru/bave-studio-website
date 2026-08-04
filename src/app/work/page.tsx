@@ -71,7 +71,7 @@ export default async function WorkPage() {
     <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <p className="eyebrow">Portfolio</p>
       <h1 className="mt-4 font-display text-4xl font-light tracking-tight text-ink md:text-6xl">
-        The work
+        A closer look at the work
       </h1>
       <p className="mt-4 max-w-lg text-lg text-graphite">
         Three disciplines, one standard. Pick a lane or browse everything.

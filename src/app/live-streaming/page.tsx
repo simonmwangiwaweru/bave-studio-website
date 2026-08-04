@@ -71,7 +71,7 @@ export default async function LiveStreamingPage() {
     <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
       <p className="eyebrow">03 — Live Streaming</p>
       <h1 className="mt-4 max-w-2xl font-display text-4xl font-light leading-tight tracking-tight text-ink md:text-6xl">
-        Your event, live to everyone who couldn’t be in the room.
+        Your event, live for everyone who couldn’t be there.
       </h1>
       <p className="mt-5 max-w-xl text-lg leading-relaxed text-graphite">
         We handle cameras, switching, sound and the stream itself — you handle
