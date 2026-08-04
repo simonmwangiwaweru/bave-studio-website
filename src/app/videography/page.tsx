@@ -49,12 +49,12 @@ const capabilities = [
     ),
   },
   {
-    title: "Externally hosted",
-    detail: "Delivered via YouTube or Vimeo, so playback stays fast wherever it's shared.",
+    title: "Raw footage included",
+    detail: "Every original clip handed over alongside the final edit — yours to keep.",
     icon: (
       <>
-        <path d="M12 3v10M8 7l4-4 4 4" />
-        <path d="M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" />
+        <path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h4l1.5 2h6A1.5 1.5 0 0 1 19.5 8.5v9A1.5 1.5 0 0 1 18 19H6.5A1.5 1.5 0 0 1 5 17.5Z" />
+        <path d="M5 9.5h14.5" />
       </>
     ),
   },
