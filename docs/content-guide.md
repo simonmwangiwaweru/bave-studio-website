@@ -58,9 +58,11 @@ Testimonials you add here show up across the site automatically.
 
 **Streaming Case Study** → **Create new**. Fill in the event name, what was
 required, what you delivered, a recording link if there is one, and viewership
-numbers if you have them. This is the one section that's written as a story
-rather than a gallery — live streams don't photograph well, so the case study
-*is* the portfolio piece for this service.
+numbers if you have them. Add one or more **Photos** too — if there's no
+recording link yet, the site shows a photo instead so the case study never
+looks empty. This is the one section written as a story rather than a
+gallery — live streams don't photograph well, so the case study *is* the
+portfolio piece for this service.
 
 ## Site Settings — the one document that controls the rest of the site
 
