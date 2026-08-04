@@ -48,7 +48,7 @@ export const siteSettings = defineType({
           ],
         },
       ],
-      validation: (r) => r.max(3),
+      validation: (r) => r.max(4),
     }),
     defineField({
       name: "phone",
