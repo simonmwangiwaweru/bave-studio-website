@@ -46,7 +46,7 @@ const heroCopy = (
       stills, film and live broadcast under one roof.
     </p>
     <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-      <Link href="/contact" className="btn-fill !bg-white !text-ink hover:!bg-linen">
+      <Link href="/contact" className="btn-fill !bg-white !text-[#111110] hover:!bg-[#e1e1db]">
         Start a project
       </Link>
       <Link href="/work" className="btn-ghost-light">

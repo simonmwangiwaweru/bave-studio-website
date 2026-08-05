@@ -23,7 +23,7 @@ export default function DarkGalleryTiles({ items }: { items: GalleryTileItem[] }
 
   return (
     <div
-      className="relative -mx-5 overflow-clip bg-ink py-10 md:-mx-8"
+      className="relative -mx-5 overflow-clip bg-[#111110] py-10 md:-mx-8"
       style={{ timelineScope: scopeValue } as CSSVars}
     >
       <div
@@ -51,10 +51,10 @@ export default function DarkGalleryTiles({ items }: { items: GalleryTileItem[] }
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
             <span className="gallery-tag">{item.tag}</span>
             <div className="absolute inset-x-4 bottom-9 z-[2]">
-              <h2 className="font-display text-xl text-card transition-colors group-hover:text-orange">
+              <h2 className="font-display text-xl text-white transition-colors group-hover:text-orange">
                 {item.label}
               </h2>
-              <p className="mt-1 text-sm text-card/70">{item.blurb}</p>
+              <p className="mt-1 text-sm text-white/70">{item.blurb}</p>
             </div>
           </Link>
         ))}

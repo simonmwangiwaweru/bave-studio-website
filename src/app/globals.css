@@ -174,9 +174,11 @@ body {
   color: var(--color-card);
 }
 .btn-ghost-light {
+  /* Always sits over a photo or the dark teal hero, regardless of
+     site theme -- colors are intentionally fixed, not theme tokens. */
   display: inline-block;
   background: transparent;
-  color: var(--color-card);
+  color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 24px;
   padding: 11px 19px;
@@ -243,11 +245,12 @@ body {
   transform: scale(1.14);
 }
 .hero-cap {
+  /* Always over a hero photo -- fixed white regardless of site theme. */
   position: absolute;
   left: 24px;
   bottom: 88px;
   z-index: 10;
-  color: var(--color-card);
+  color: #ffffff;
   opacity: 0.9;
 }
 .hero-bar-track {
@@ -289,7 +292,7 @@ body {
     color: rgba(255, 255, 255, 0.5);
   }
   50% {
-    color: var(--color-card);
+    color: #ffffff;
   }
 }
 @keyframes heroZoom {
@@ -330,6 +333,7 @@ body {
   object-fit: cover;
 }
 .gallery-tag {
+  /* Always over a photo tile -- fixed white regardless of site theme. */
   position: absolute;
   left: 16px;
   bottom: 16px;
@@ -337,7 +341,7 @@ body {
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-card);
+  color: #ffffff;
 }
 @supports (animation-timeline: view()) {
   .gallery-tile-img {
